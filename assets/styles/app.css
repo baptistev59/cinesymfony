@@ -473,3 +473,8 @@ hr.sep {
     background: color-mix(in oklab, var(--panel-2) 70%, transparent);
     margin: 24px 0;
 }
+
+.seances-list {
+    list-style: none;
+    padding: 0;
+}

@@ -17,7 +17,7 @@
 	<body>
 		<header class="nav">
 			<div class="container nav-inner">
-				<a class="brand" href="index.html">
+				<a class="brand" href="{{ path('app_home') }}">
 					<span class="brand-logo">A</span>
 					<span>Cinéma Aurora</span>
 				</a>
@@ -26,22 +26,28 @@
 				<label for="menu" class="menu-toggle btn">Menu</label>
 
 				<nav class="nav-links">
-					<a href="index.html" class="active">Accueil</a>
-					<a href="programmation.html">Programmation</a>
+
+					<a href="{{ path('app_home') }}" class="active">Accueil</a>
+					<a href="{{ path('app_programmation') }}">Programmation</a>
 					<a href="reservation.html">Réserver</a>
 					<a href="profil.html">Profil</a>
-					<a class="cta" href="auth.html">Se connecter</a>
+					{% if  not app.user %}
+						<a class="cta" href="{{ path('app_login') }}">Se connecter</a>
+						<a class="cta" href="{{ path('app_register') }}">S'inscrire</a>
+					{% else %}
+						<a class="cta" href="{{ path('app_logout') }}">Déconnexion</a>
+					{% endif %}
 				</nav>
 			</div>
 		</header>
 
-		<main>
-			{% block body %}{% endblock %}
-		</main>
-		<footer class="footer">
+		<main class="{% block main_class %}container section{% endblock %}"> {% block body %}{% endblock %}
+			</main>
+
 			<footer class="footer">
-				<div class="container">© Cinéma Aurora — Mentions légales · CGV · Données personnelles</div>
-			</footer>
+				<footer class="footer">
+					<div class="container">© Cinéma Aurora — Mentions légales · CGV · Données personnelles</div>
+				</footer>
+			</body>
 		</body>
-	</body>
-</html>
+	</html>
