@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
-    const STATUTS_CONFIRMEE= ['CONFIRMEE'];
-    const STATUTS_ANNULEE= ['ANNULEE'];
+    const STATUTS_CONFIRMEE= 'CONFIRMEE';
+    const STATUTS_ANNULEE= 'ANNULEE';
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,6 +21,7 @@ class Reservation
     private ?Seance $seance = null;
 
     #[ORM\Column]
+    #[Range(min: 1, max: 15, notInRangeMessage: 'Vous devez réserver entre {{ min }} et {{ max }} places')]
     private ?int $nombre_places = null;
 
     #[ORM\Column(length: 20)]

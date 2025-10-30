@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réserver une séance - Cinéma Aurora
+{% endblock %}
+
+{% block body %}
+	<h1>Réservation</h1>
+	<p class="muted">Veuillez confirmer votre réservation pour la séance ci-dessous :</p>
+
+	<div class="card" style="padding:1.5rem;margin-top:1rem">
+		<h3>{{ seance.film.titre }}
+			-
+			{{ seance.film.langue }}</h3>
+		<p>Séance du
+			{{ seance.date | date('d/m/Y H:i') }}
+			- Salle
+			{{ seance.salle.numero }}</p>
+		{{form_start(form)}}
+		{{ form_widget(form)}}
+		<button class="btn primary">Confirmer la réservation</button>
+		{{ form_end(form)}}
+	</div>
+{% endblock %}

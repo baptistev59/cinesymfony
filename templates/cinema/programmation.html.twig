@@ -24,7 +24,7 @@
 					<ul class="seances-list">
 						{% for seance in film.seances %}
 							<li>{{ seance.date | date('d/m à H:i') }}
-								<a class="btn small" href="reservation.html?film={{ film.titre|url_encode }}&seance={{ seance.date|date('Y-m-d\TH:i')|url_encode }}">Réserver</a>
+								<a class="btn small" href="{{ path('app_reserver', { id: seance.id }) }}">Réserver</a>
 							</li>
 						{% endfor %}
 

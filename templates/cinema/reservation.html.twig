@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes réservations - Cinéma Aurora
+{% endblock %}
+{% block body %}
+	<h1>Mon profil</h1>
+	<p class="muted">Bienvenue sur votre espace personnel.</p>
+
+	<h2>Mes réservations</h2>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Film</th>
+					<th>Date</th>
+					<th>Places</th>
+					<th>Salle</th>
+					<th>Statut</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Récupérer et afficher les réservations de l'utilisateur -->
+				{% for reservation in app.user.reservations %}
+					<tr>
+						<td>{{ reservation.seance.film.titre }}</td>
+						<td>{{ reservation.seance.date|date('d/m/Y H:i') }}</td>
+						<td>{{ reservation.nombrePlaces }}</td>
+						<td>{{ reservation.seance.salle.numero }}</td>
+						<td>
+							{% if reservation.statut == 'CONFIRMEE' %}
+								<span class="badge success">Confirmée</span>
+							{% elseif reservation.statut == 'ANNULEE' %}
+								<span class="badge warning">Annulée</span>
+							{% endif %}
+						</td>
+						<td>
+							{% if reservation.statut == 'CONFIRMEE' %}
+								<a href="{{ path('annuler_reservation', {'id': reservation.id}) }}" class="btn btn-sm btn-danger">Annuler</a>
+							{% else %}
+								<span class="muted">
+									-
+								</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">Vous n'avez pas encore de réservations.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
