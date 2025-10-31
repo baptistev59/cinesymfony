@@ -4,20 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Réservation</h1>
-	<p class="muted">Veuillez confirmer votre réservation pour la séance ci-dessous :</p>
-
-	<div class="card" style="padding:1.5rem;margin-top:1rem">
-		<h3>{{ seance.film.titre }}
+	<div data-controller="confirmation">
+		<div class="actions" style="justify-content: space-between">
+			<h1 style="margin: 0;">Réservation</h1>
+		</div>
+		<p class="muted">{{ seance.film.titre }}
 			-
-			{{ seance.film.langue }}</h3>
-		<p>Séance du
+			{{ seance.film.langue }}
+			- Séance du
 			{{ seance.date | date('d/m/Y H:i') }}
 			- Salle
-			{{ seance.salle.numero }}</p>
-		{{form_start(form)}}
+			{{ seance.salle.numero }}
+		</p>
+
+
+		{{form_start(form,{ 'attr': {'data-action': 'submit->confirmation#showPopup'}})}}
 		{{ form_widget(form)}}
 		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Confirmer la réservation</button>
 		{{ form_end(form)}}
+
+		<div data-confirmation-target="popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+			<div class="bg-white p-6 rounded shadow-lg max-w-md text-center">
+				<h2 class="text-xl font-bold mb-4 text-black">Réservation en cours...</h2>
+				<p class="mb-4 text-black">Veuillez patienter pendant que nous traitons votre réservation.</p>
+			</div>
+		</div>
 	</div>
 {% endblock %}

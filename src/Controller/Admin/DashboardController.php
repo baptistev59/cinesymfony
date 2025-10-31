@@ -18,9 +18,8 @@ class DashboardController extends AbstractDashboardController
 {
     public function index(): Response
     {
-        return parent::index();
 
-        return $this->redirectToRoute('admin_film_index');
+        return $this->render('dashboard.html.twig');
         
     }
 

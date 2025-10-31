@@ -80,7 +80,7 @@ class AppFixtures extends Fixture
             $reservation = new Reservation();
             $reservation->setNombrePlaces($faker->numberBetween(1, 3))
                 ->setSeance($faker->randomElement($seances))
-                ->setStatut($faker->randomElement(Reservation::STATUTS_CONFIRMEE + Reservation::STATUTS_ANNULEE))
+                ->setStatut($faker->randomElement([Reservation::STATUTS_CONFIRMEE, Reservation::STATUTS_ANNULEE]))
                 ->setUtilisateur($faker->randomElement($utilisateurs));
             $manager->persist($reservation);
         }
